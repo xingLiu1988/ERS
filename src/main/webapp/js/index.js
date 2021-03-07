@@ -43,8 +43,24 @@ function sendLogin() {
             document.getElementById('warningText').textContent = "Failed to Login";
         }
     }
-    
+
     xhr.open("POST", "http://localhost:8080/ERS/login");
 
     xhr.send(JSON.stringify(user));
+}
+
+function logout() {
+    let logout = confirm("My dear, are you sure to logout?");
+    if(logout) {
+        // clear server side session
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8080/ERS/logout");
+        xhr.send();
+    
+        // clear client side session
+        sessionStorage.removeItem('currentUser');
+        window.location = "http://localhost:8080/ERS/";
+    }else{
+        return false;
+    }
 }
