@@ -20,16 +20,14 @@ public class UsersDaoImpl implements UsersDao{
 	@Override
 	public List<Users> findAllAccounts() {
 		List<Users> allAccounts = new ArrayList<>();
-		Users users;
-		UserRole userRole;
 		try {
 			Connection conn = ConnectionUtil.getConnection();
 			String sql = "SELECT * FROM users INNER JOIN user_role ON users.user_role_id = user_role.user_role_id";
 			PreparedStatement p = conn.prepareStatement(sql);
 			ResultSet r = p.executeQuery();
 			while(r.next()) {
-				userRole = new UserRole(r.getInt("user_role_id"), r.getString("user_role"));
-				users = new Users(r.getInt("user_id"), r.getString("username"), r.getString("userpassword"), r.getString("first_name"), r.getString("last_name"), r.getString("email"), userRole);
+				UserRole userRole = new UserRole(r.getInt("user_role_id"), r.getString("user_role"));
+				Users users = new Users(r.getInt("user_id"), r.getString("username"), r.getString("userpassword"), r.getString("first_name"), r.getString("last_name"), r.getString("email"), userRole);
 				allAccounts.add(users);
 			}
 		}catch (SQLException e) {

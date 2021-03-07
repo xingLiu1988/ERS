@@ -34,14 +34,10 @@ public class UsersService {
 
 	// this method used to get all account and return the employee match to the username we provided
 	public static Users findByUsername(String username) {
-		System.out.println("进入findByUsername()");
-		List<Users> all = findAllAccounts();
-		
+		List<Users> all = uDao.findAllAccounts();
 		for (Users u : all) { 
 			if (u.getUsername().equals(username)) {
-				System.out.println("zhaodao l");
 				return u; 
-				
 			}
 		}
 		return null;
@@ -49,9 +45,7 @@ public class UsersService {
 
 	// this method will find all the account inside the database
 	public static List<Users> findAllAccounts() {
-		System.out.println("进入findAllAccouts");
 		List<Users> allUsers = uDao.findAllAccounts();
-		System.out.println(allUsers);
 		return allUsers;
 	}
 }
