@@ -31,6 +31,7 @@ function sendLogin() {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText);
             sessionStorage.setItem('currentUser', this.responseText)
             if (typeOfUser === 'employee') {
                 window.location = "http://localhost:8080/ERS/html/employee.html";

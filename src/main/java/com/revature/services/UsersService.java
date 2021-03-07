@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 import com.revature.dao.UsersDao;
 import com.revature.dao.UsersDaoImpl;
+import com.revature.models.Reimbursement;
 import com.revature.models.Users;
 
 
@@ -47,5 +48,10 @@ public class UsersService {
 	public static List<Users> findAllAccounts() {
 		List<Users> allUsers = uDao.findAllAccounts();
 		return allUsers;
+	}
+
+	public static List<Reimbursement> getReimburseById(int user_id) {
+		List<Reimbursement> list = uDao.getReimburseById(user_id);
+		return list;
 	}
 }
