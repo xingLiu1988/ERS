@@ -1,3 +1,4 @@
+
 function sendLogin() {
     // get type of user
     let type = document.querySelectorAll(".typeOfUser");

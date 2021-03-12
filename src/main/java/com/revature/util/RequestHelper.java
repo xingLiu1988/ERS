@@ -14,7 +14,9 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.LoginTemplate;
+import com.revature.models.ReimburseTemplate;
 import com.revature.models.Reimbursement;
+import com.revature.models.UpdateInfoTemplate;
 import com.revature.models.Users;
 import com.revature.services.UsersService;
 
@@ -69,9 +71,9 @@ public class RequestHelper {
 		}
 	}
 	
-	// This method's purpose is to return all Employees from the DB in JSON form 
+	// 用于获取用户 
 	public static void processReimbursements(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		// 设置数据类型
+		// 接收用户信息
 		BufferedReader reader = req.getReader();
 		StringBuilder s = new StringBuilder();
 		String line = reader.readLine();
@@ -83,19 +85,40 @@ public class RequestHelper {
 		System.out.println("接收到的数据是: " + body);
 		
 		// 转换成对象
-		Users user = om.readValue(body, Users.class);
+		ReimburseTemplate reimburse = om.readValue(body, ReimburseTemplate.class);
+		System.out.println("转换成的数据是：" + reimburse);
 		
 		// 获取reimbursement
-		List<Reimbursement> reimbursements = UsersService.getReimburseById(user.getUser_id());
+		boolean isInserted = UsersService.insertReimburse(reimburse);
 		
 		// 当不是NULL的时候传回数据
-		if(reimbursements != null) {
-			res.setContentType("application/json");
-			res.getWriter().println(om.writeValueAsString(reimbursements));
+		if(isInserted) {
+			res.setStatus(200);
 		}else {
 			res.setStatus(204);
 		}
 	}	
+	
+	public static void processReimbOfCurrent(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		System.out.println("inside processReimbOfCurren()");
+		BufferedReader reader = req.getReader();
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+		System.out.println("接收到的数据是: " + body);
+		
+		Users users = om.readValue(body, Users.class);
+		List<Reimbursement> list = UsersService.getReimburseById(users.getUser_id());
+		
+		System.out.println(list);
+		res.getWriter().println(om.writeValueAsString(list));
+	}
+	
 	
 	public static void processError(HttpServletRequest req, HttpServletResponse res) throws IOException {
 //		try {
@@ -108,4 +131,60 @@ public class RequestHelper {
 //			e.printStackTrace();
 //		}
 	}
+
+
+	public static void processUpdateInfo(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		// 获取用户信息
+		BufferedReader reader = req.getReader();
+		StringBuilder s = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			s.append(line);
+			line = reader.readLine();
+		}
+		String body = s.toString();
+		System.out.println("processUpdateInfo-> body" + body);
+		// 转换成JAVA对象
+		UpdateInfoTemplate updateInfoTemplate = om.readValue(body, UpdateInfoTemplate.class);
+		
+		boolean updated = false;
+		if(updateInfoTemplate.getType().equals("password")) {
+			updated = UsersService.updatePasswordById(updateInfoTemplate);
+		}else if(updateInfoTemplate.getType().equals("firstname")) {
+			updated = UsersService.updateFirstnameById(updateInfoTemplate);
+		}else if(updateInfoTemplate.getType().equals("lastname")) {
+			updated = UsersService.updateLastnameById(updateInfoTemplate);
+		}else {
+			updated = UsersService.updateEmailById(updateInfoTemplate);
+		}
+		
+		if(updated) {
+			Users user = UsersService.findUserById(updateInfoTemplate);
+			res.getWriter().println(om.writeValueAsString(user));
+		}else {
+			res.setStatus(204);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//
 }

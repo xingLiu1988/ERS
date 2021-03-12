@@ -27,8 +27,15 @@ public class FrontController extends HttpServlet {
 			System.out.println("inside case reimbursements");
 			RequestHelper.processReimbursements(request, response);
 			break;
+		case "reimbOfCurrent":
+			System.out.println("inside reimbOfCurrent");
+			RequestHelper.processReimbOfCurrent(request, response);
+			break;
 		case "error":
 			RequestHelper.processError(request, response);
+			break;
+		case "updateInfo":
+			RequestHelper.processUpdateInfo(request, response);
 			break;
 		}
 	}

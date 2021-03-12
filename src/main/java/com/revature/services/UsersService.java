@@ -3,7 +3,9 @@ package com.revature.services;
 import java.util.List;
 import com.revature.dao.UsersDao;
 import com.revature.dao.UsersDaoImpl;
+import com.revature.models.ReimburseTemplate;
 import com.revature.models.Reimbursement;
+import com.revature.models.UpdateInfoTemplate;
 import com.revature.models.Users;
 
 
@@ -16,7 +18,6 @@ public class UsersService {
 		// using username to search the data
 		Users user = findByUsername(username);
 		
-		System.out.println("查看仙子的" + user);
 		// if not found return null
 		if (user == null) {
 			System.out.println("用户名或密码不正确");
@@ -51,7 +52,36 @@ public class UsersService {
 	}
 
 	public static List<Reimbursement> getReimburseById(int user_id) {
-		List<Reimbursement> list = uDao.getReimburseById(user_id);
-		return list;
+		return uDao.getReimburseById(user_id);
+	}
+
+	public static boolean insertReimburse(ReimburseTemplate reimburse) {
+		return uDao.insertReimburse(reimburse);
+	}
+
+	public static boolean updateFirstnameById(UpdateInfoTemplate updateInfoTemplate) {
+		return uDao.updateFirstnameById(updateInfoTemplate);
+	}
+
+	public static boolean updatePasswordById(UpdateInfoTemplate updateInfoTemplate) {
+		return uDao.updatePasswordById(updateInfoTemplate);
+	}
+
+	public static boolean updateLastnameById(UpdateInfoTemplate updateInfoTemplate) {
+		return uDao.updateLastnameById(updateInfoTemplate);
+	}
+
+	public static boolean updateEmailById(UpdateInfoTemplate updateInfoTemplate) {
+		return uDao.updateEmailById(updateInfoTemplate);
+	}
+
+	public static Users findUserById(UpdateInfoTemplate updateInfoTemplate) {
+		List<Users> list = uDao.findAllAccounts();
+		for (Users u : list) { 
+			if(u.getUser_id() == updateInfoTemplate.getUserId()) {
+				return u;
+			}
+		}
+		return null;
 	}
 }

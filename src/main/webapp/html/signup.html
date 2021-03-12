@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/index.css">
     <title>Sign Up Page</title>
+    <style>
+        #employee-body {
+            background: url('../images/signup-bg.jpg');
+        }
+    </style>
   </head>
-  <body>
+  <body id="employee-body">
     <div id="mainContent">
         <h3 class="mb-4">Sign Up</h3>
 
@@ -23,18 +28,37 @@
                     <input type="radio" name="type" id="employee" value="manager">
                     <label for="employee">Manager</label>
 
+                    <!-- FIRST NAME -->
+                    <div class="form-group">
+                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First name">
+                    </div>
+
+                    <!-- LAST NAME -->
+                    <div class="form-group">
+                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last name">
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+
+                    <!-- USERNAME -->
                     <div class="form-group">
                         <input type="text" name="username" id="username" class="form-control" placeholder="Username">
                     </div>
-
+                    
+                    <!-- PASSWORD -->
                     <div class="form-group">
                         <input type="password" name="password" id="password1" class="form-control" placeholder="Password">
                     </div>
-
+                    
+                    <!-- CONFIRM PASSWORD -->
                     <div class="form-group">
                         <input type="password" name="password" id="password2" class="form-control" placeholder="Password again">
                     </div>
-
+                    
+                    <!-- SUBMIT -->
                     <button type="submit" class="btn btn-info btn-block">CREATE</button>
                     
                     <hr>

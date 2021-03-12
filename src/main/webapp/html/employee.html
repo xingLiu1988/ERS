@@ -20,16 +20,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">Revature1</a>
+            <a class="navbar-brand" href="http://localhost:8080/ERS/html/employee.html">Google</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="http://localhost:8080/ERS/html/employee.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Setting</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reimbursement</a>
+                    <a href="http://localhost:8080/ERS/html/about.html" class="nav-link">Setting</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="logout()">Logout</a>
@@ -53,10 +50,18 @@
             </div>
 
             <div class="addNew">
-                <button class="btn btn-warning addBtn">+ Create New Exprense</button>
+                <button class="btn btn-warning addBtn" id="addBtn" onclick="addReimbursement()">+ Create New
+                    Exprense</button>
             </div>
-
+            <!-- Sorted Status By: all pending denied approved resovled -->
+            <div class="p-1 bg-light" id="btns">
+                <span class="font-weight-bold">View By:</span> 
+                <button class="border-0 font-italic" onclick="findAll()">All</button> 
+                <button class="border-0 font-italic" onclick='findPending(reimbData)'>Pending</button> 
+                <button class="border-0 font-italic" onclick='findResolved(reimbData)'>Resolved</button>
+            </div>
             <div class="reim-title">
+
                 <table class="table table-bordered" id="reimbList">
                     <tr>
                         <th>REIMBUR ID</th>
@@ -64,8 +69,10 @@
                         <th>STATUS</th>
                         <th>AMOUNT</th>
                         <th>CREATED DATE</th>
+                        <th>RESOLVED</th>
                     </tr>
                 </table>
+
                 <div id="noDataShow">
                     You don't have any reimbursement ticket
                 </div>
@@ -90,10 +97,10 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-    <script src="../js/employee.js"></script>
-    <script src="../js/index.js"></script>
-    <script src="../js/postAjax.js"></script>
-
+        <script type="text/javascript" src="../js/employee.js"></script>
+        <script src="../js/index.js"></script>
+        <!-- <script src="../js/postAjax.js"></script> -->
+        
 </body>
 
 </html>

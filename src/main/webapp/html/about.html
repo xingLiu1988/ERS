@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="http://localhost:8080/ERS/html/employee.html">Google</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/ERS/html/employee.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://localhost:8080/ERS/html/about.html" class="nav-link">Setting</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 个人信息桌面 -->
+    <div id="info">
+        <h3>Personal Information</h3>
+        <table id="info-table">
+            <tr>
+                <td>User ID:</td>
+                <td id="userid"></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td id="username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td id="password">*********</td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td id="firstname"></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td id="lastname"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td id="email"></td>
+            </tr>
+            <tr>
+                <td>User Role:</td>
+                <td id="role"></td>
+            </tr>
+        </table>
+        <hr>
+        <div>
+            <button id="updateBtn" class="btn btn-outline-primary" onclick="toggleInfo()">UPDATE INFO</button>
+        </div>
+
+        <!-- 修改个人信息桌面 -->
+        <table id="update-info" style="display: none;">
+            <tr>
+                <td>User ID:</td>
+                <td id="u-userid"></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td id="u-username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" id="u-password" style="height: 37px; margin-right: 15px;"></td>
+                <td><button class="btn btn-outline-secondary" onclick="updatePassword()">Update</button></td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="firstname" id="u-firstname" style="height: 37px; margin-right: 15px;"></td>
+                <td><button class="btn btn-outline-secondary" onclick="updateFirstName()">Update</button></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="lastname" id="u-lastname" style="height: 37px; margin-right: 15px;"></td>
+                <td><button class="btn btn-outline-secondary" onclick="updateLastName()">Update</button></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="email" id="u-email" style="height: 37px; margin-right: 15px;"></td>
+                <td><button class="btn btn-outline-secondary" onclick="updateEmail()">Update</button></td>
+            </tr>
+            <tr>
+                <td>User Role:</td>
+                <td id="u-userRole"></td>
+            </tr>
+            <tr>
+                <td><button class="btn btn-outline-primary" onclick="backToHome()">Cancel</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script src="../js/about.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
