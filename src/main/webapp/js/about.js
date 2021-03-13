@@ -4,7 +4,6 @@ window.onload = function () {
         window.location = 'http://localhost:8080/ERS/';
     } else {
         let userData = JSON.parse(userString);
-        console.log(userData);
 
         // 未修改桌面
         document.getElementById("userid").innerHTML = userData.user_id;
@@ -141,7 +140,6 @@ function updateEmail() {
 }
 
 function gotoHome(){
-    alert('inside home');
     let userString = sessionStorage.getItem('currentUser');
     let currentUser = JSON.parse(userString);
     console.log(currentUser);

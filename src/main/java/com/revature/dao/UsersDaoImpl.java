@@ -63,7 +63,7 @@ public class UsersDaoImpl implements UsersDao {
 				reimb.setStatus(r.getString("status"));
 				reimb.setType(r.getString("reimb_type"));
 				reimb.setUser_id(r.getInt("user_id"));
-				System.out.println("uDao Layer:接收到的数据" + reimb);
+				reimb.setAuthor(r.getString("author"));
 				list.add(reimb);
 			}
 		} catch (SQLException e) {

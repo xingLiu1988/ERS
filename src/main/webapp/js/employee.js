@@ -163,7 +163,7 @@ function findResolved(data) {
     //过滤
     let arr = [];
     for (let i = 0; i < data.length; i++) {
-        if (data[i].resolved != "" ) {
+        if (data[i].resolved != "") {
             arr.push(data[i]);
         }
     }
@@ -191,7 +191,12 @@ function findResolved(data) {
             data[i].resolved = '';
         }
         let resolved = document.createTextNode(data[i].resolved);
-        let author = document.createTextNode(data[i].author);
+        let author = '';
+        if (data[i].author == null) {
+            author = document.createTextNode('');
+        } else {
+            author = document.createTextNode(data[i].author);
+        }
 
         // 添加数据到td
         td1.appendChild(reimb_id);
@@ -227,9 +232,9 @@ function findResolved(data) {
     //     }
     // }
     // appendListOfImbursement(arr);
-    if(arr.length == 0){
+    if (arr.length == 0) {
         document.getElementById("noDataShow").style.display = 'block';
-    }else{
+    } else {
         document.getElementById("noDataShow").style.display = 'none';
     }
 }
