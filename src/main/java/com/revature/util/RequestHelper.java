@@ -29,7 +29,7 @@ public class RequestHelper {
 	private static ObjectMapper om = new ObjectMapper();
 
 	public static void processLogin(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		// get data from frontend
+		// get data from client
 		BufferedReader reader = req.getReader();
 		StringBuilder s = new StringBuilder();
 		String line = reader.readLine();
@@ -38,30 +38,23 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
-		System.out.println("接收到的数据是: " + body);
 
 		// convert data into java object
-		LoginTemplate loginAttempt = om.readValue(body, LoginTemplate.class); // from JSON --> Java Object
+		LoginTemplate loginAttempt = om.readValue(body, LoginTemplate.class); 
 
 		// validate employee and manger using EmployeeService
 		Users u = UsersService.confirmLogin(loginAttempt.getTypeOfUser(), loginAttempt.getUsername(),
 				loginAttempt.getPassword());
 
-		// 第四步：判断用户是否存在
+		// check if there is a user
 		if (u != null) {
 			res.setContentType("application/json");
-
-			// 第五步：给用户创建session
 			HttpSession session = req.getSession();
 			session.setAttribute("username", loginAttempt.getUsername());
-
-			// 第六步：传回数据给前端
 			res.getWriter().println(om.writeValueAsString(u));
-
 		} else {
-			res.setStatus(204); // this means that we still have a connection, but no user is found
+			res.setStatus(204); 
 		}
-
 	}
 
 	public static void processLogout(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -70,10 +63,12 @@ public class RequestHelper {
 		if (session != null) {
 			session.invalidate();
 		}
+		res.setStatus(200);
 	}
 
 
 	public static void processReimbursements(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		log.info("receive an add reimbursement request");
 		// 接收用户信息
 		BufferedReader reader = req.getReader();
 		StringBuilder s = new StringBuilder();
@@ -83,11 +78,9 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
-		System.out.println("接收到的数据是: " + body);
 
 		// 转换成对象
 		ReimburseTemplate reimburse = om.readValue(body, ReimburseTemplate.class);
-		System.out.println("转换成的数据是：" + reimburse);
 
 		// 获取reimbursement
 		boolean isInserted = UsersService.insertReimburse(reimburse);
@@ -101,8 +94,7 @@ public class RequestHelper {
 	}
 
 	public static void processReimbOfCurrent(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
-		System.out.println("inside processReimbOfCurren()");
+		log.info("receive a get current reimbursement request");
 		BufferedReader reader = req.getReader();
 		StringBuilder s = new StringBuilder();
 		String line = reader.readLine();
@@ -111,12 +103,10 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
-		System.out.println("接收到的数据是: " + body);
 
 		Users users = om.readValue(body, Users.class);
 		List<Reimbursement> list = UsersService.getReimburseById(users.getUser_id());
 
-		System.out.println(list);
 		res.getWriter().println(om.writeValueAsString(list));
 	}
 
@@ -133,7 +123,8 @@ public class RequestHelper {
 	}
 
 	public static void processUpdateInfo(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		// 获取用户信息
+		log.info("receive an update user information request");
+		// get data from client
 		BufferedReader reader = req.getReader();
 		StringBuilder s = new StringBuilder();
 		String line = reader.readLine();
@@ -142,10 +133,11 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
-		System.out.println("processUpdateInfo-> body" + body);
-		// 转换成JAVA对象
+		
+		// convert to java obj
 		UpdateInfoTemplate updateInfoTemplate = om.readValue(body, UpdateInfoTemplate.class);
 
+		// check update info type and sent to dao 
 		boolean updated = false;
 		if (updateInfoTemplate.getType().equals("password")) {
 			updated = UsersService.updatePasswordById(updateInfoTemplate);
@@ -171,6 +163,7 @@ public class RequestHelper {
 	}
 
 	public static void processDecision(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		log.info("receive an reimbursement decision made by manager");
 		// get data from request
 		BufferedReader reader = request.getReader();
 		StringBuilder s = new StringBuilder();
@@ -180,11 +173,10 @@ public class RequestHelper {
 			line = reader.readLine();
 		}
 		String body = s.toString();
-		System.out.println(body + "kankan");
+		
 		// convert json to java obj
 		Decision decision = om.readValue(body, Decision.class);
-		System.out.println(decision + "kankan");
-
+		
 		// send data to UsersService using make decision and return true or false
 		boolean result = UsersService.makeDecision(decision);
 
@@ -207,6 +199,4 @@ public class RequestHelper {
 		}
 		response.getWriter().println(om.writeValueAsString(employeesList));
 	}
-
-	//
 }

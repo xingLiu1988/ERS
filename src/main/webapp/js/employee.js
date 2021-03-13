@@ -37,7 +37,6 @@ xhr.open("POST", "http://localhost:8080/ERS/reimbOfCurrent");
 xhr.send(currentUser);
 
 function appendListOfImbursement(data) {
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
         let tr = document.createElement("tr");
         let td1 = document.createElement("td");
@@ -90,6 +89,7 @@ function appendListOfImbursement(data) {
 
 //给3个查找All, Pending, Resolved添加点击切换背景事件
 let btns = document.querySelectorAll("#btns button");
+btns[0].style.backgroundColor = 'yellow';
 for (let i = 0; i < btns.length; i++) {
     btns[i].addEventListener('click', doSomeThing);
 }
@@ -122,15 +122,111 @@ function findPending(data) {
 
 //查找Resolved事件
 function findResolved(data) {
+    //添加头部
+    document.getElementById("reimbList").innerHTML = '';
+    let tr = document.createElement('tr');
 
-    createHeader();
+    let th1 = document.createElement('th');
+    let th2 = document.createElement('th');
+    let th3 = document.createElement('th');
+    let th4 = document.createElement('th');
+    let th5 = document.createElement('th');
+    let th6 = document.createElement('th');
+    let th7 = document.createElement('th');
+
+    let d1 = document.createTextNode("REIMBUR ID");
+    let d2 = document.createTextNode("TYPE");
+    let d3 = document.createTextNode("STATUS");
+    let d4 = document.createTextNode("AMOUNT");
+    let d5 = document.createTextNode("CREATED DATE");
+    let d6 = document.createTextNode("RESOLVED");
+    let d7 = document.createTextNode("RESOLVED BY");
+
+    th1.appendChild(d1);
+    th2.appendChild(d2);
+    th3.appendChild(d3);
+    th4.appendChild(d4);
+    th5.appendChild(d5);
+    th6.appendChild(d6);
+    th7.appendChild(d7);
+
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    tr.appendChild(th3);
+    tr.appendChild(th4);
+    tr.appendChild(th5);
+    tr.appendChild(th6);
+    tr.appendChild(th7);
+
+    document.getElementById("reimbList").appendChild(tr);
+
+    //过滤
     let arr = [];
     for (let i = 0; i < data.length; i++) {
         if (data[i].resolved != "" ) {
             arr.push(data[i]);
         }
     }
-    appendListOfImbursement(arr);
+
+    //添加资料
+    for (let i = 0; i < data.length; i++) {
+        let tr = document.createElement("tr");
+
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        let td3 = document.createElement("td");
+        let td4 = document.createElement("td");
+        let td5 = document.createElement("td");
+        let td6 = document.createElement("td");
+        let td7 = document.createElement("td");
+
+        // 获取每个数据
+        let reimb_id = document.createTextNode(data[i].reimb_id);
+        let amount = Number(data[i].amount).toFixed(2);
+        let amountValue = document.createTextNode('$' + amount);
+        let submitted = document.createTextNode(data[i].submitted);
+        let type = document.createTextNode(data[i].type);
+        let status = document.createTextNode(data[i].status);
+        if (data[i].resolved === null) {
+            data[i].resolved = '';
+        }
+        let resolved = document.createTextNode(data[i].resolved);
+        let author = document.createTextNode(data[i].author);
+
+        // 添加数据到td
+        td1.appendChild(reimb_id);
+        td2.appendChild(type);
+        td3.appendChild(status);
+        td4.appendChild(amountValue);
+        td5.appendChild(submitted);
+        td6.appendChild(resolved);
+        td7.appendChild(author);
+
+        // 添加数据到tr
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
+        tr.appendChild(td7);
+
+        // 添加数据到table
+        document.getElementById("reimbList").appendChild(tr);
+    }
+
+
+
+
+
+    // createHeader();
+    // let arr = [];
+    // for (let i = 0; i < data.length; i++) {
+    //     if (data[i].resolved != "" ) {
+    //         arr.push(data[i]);
+    //     }
+    // }
+    // appendListOfImbursement(arr);
     if(arr.length == 0){
         document.getElementById("noDataShow").style.display = 'block';
     }else{

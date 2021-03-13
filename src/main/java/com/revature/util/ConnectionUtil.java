@@ -36,7 +36,6 @@ public class ConnectionUtil {
 			
 			try {
 				conn = DriverManager.getConnection(url, username, password);
-				log.info("connection to db successful");
 			} catch (SQLException e) {
 				log.warn("failed connection to the database");
 			}

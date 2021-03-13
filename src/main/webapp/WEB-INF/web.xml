@@ -18,5 +18,6 @@
     <url-pattern>/allReimburses</url-pattern>
     <url-pattern>/decision</url-pattern>
     <url-pattern>/employees</url-pattern>
+    <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 </web-app>
