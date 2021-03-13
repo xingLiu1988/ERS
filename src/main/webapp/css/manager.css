@@ -1,0 +1,22 @@
+#reimbursement {
+    padding: 20px;
+}
+.re-title {
+    background-color: #55698d;
+    padding: 10px;
+    color: white;
+}
+.jumbotron {
+    margin-bottom: 0;
+}
+
+.reim-title {
+    padding: 15px;
+    padding-top: 0;
+}
+#btns {
+    padding: 15px;
+}
+#reimbList tr:hover {
+    background-color: rgb(233, 245, 226);
+}

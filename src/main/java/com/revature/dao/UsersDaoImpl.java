@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.revature.models.Decision;
 import com.revature.models.ReimburseTemplate;
 import com.revature.models.Reimbursement;
 import com.revature.models.UpdateInfoTemplate;
@@ -204,6 +207,74 @@ public class UsersDaoImpl implements UsersDao {
 			log.warn("SQLException");
 		}
 		return updated;
+	}
+
+	@Override
+	public List<Reimbursement> getAllReimbuses() {
+		List<Reimbursement> list = new ArrayList<>();
+		Reimbursement reimb;
+		try {
+			Connection conn = ConnectionUtil.getConnection();
+			String sql = "SELECT * FROM reimbursement re INNER JOIN reimb_type r ON r.type_id = re.type_id INNER JOIN reimb_status rs ON rs.status_id = re.status_id";
+			PreparedStatement p = conn.prepareStatement(sql);
+			ResultSet r = p.executeQuery();
+			while (r.next()) {
+				reimb = new Reimbursement();
+				reimb.setReimb_id(r.getInt("reimb_id"));
+				reimb.setAmount(r.getFloat("amount"));
+				reimb.setSubmitted(r.getString("submitted").substring(0, 19));
+				reimb.setResolved(r.getString("resolved"));
+				reimb.setDescription(r.getString("description"));
+				reimb.setStatus(r.getString("status"));
+				reimb.setType(r.getString("reimb_type"));
+				reimb.setUser_id(r.getInt("user_id"));
+				reimb.setAuthor(r.getString("author"));
+				System.out.println("uDao Layer:接收到的数据" + reimb);
+				list.add(reimb);
+			}
+		} catch (SQLException e) {
+			log.warn("SQLException");
+		}
+		return list;
+	}
+
+	@Override
+	public boolean makeDecision(Decision decision) {
+		// get value of reimbID, decisionValue, and date, author
+		int reimbId = decision.getReimb_id(); 
+		String decisionValue = decision.getDecision();
+		int statusId = 0;
+		String author = decision.getAuthor();
+		if(decisionValue.equals("approved")) {
+			statusId = 2;
+		}else {
+			statusId = 3;
+		}
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formattedDate = myDateObj.format(myFormatObj);
+		
+		System.out.println("id " + reimbId);
+		System.out.println("status id " + statusId);
+		System.out.println(formattedDate);
+		System.out.println(author);
+		// updating
+		try {
+			Connection conn = ConnectionUtil.getConnection();
+			String sql = "UPDATE reimbursement SET status_id = ?, resolved = ?, author = ? WHERE reimb_id = ?";
+			PreparedStatement p = conn.prepareStatement(sql);
+			p.setInt(1, statusId);
+			p.setString(2, formattedDate);
+			p.setString(3, author);
+			p.setInt(4, reimbId);
+			int executeUpdate = p.executeUpdate();
+			if (executeUpdate == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			log.warn("SQLException");
+		}
+		return false;
 	}
 
 

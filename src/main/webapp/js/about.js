@@ -139,3 +139,17 @@ function updateEmail() {
         xhr.send(JSON.stringify(obj));
     }
 }
+
+function gotoHome(){
+    alert('inside home');
+    let userString = sessionStorage.getItem('currentUser');
+    let currentUser = JSON.parse(userString);
+    console.log(currentUser);
+    if(currentUser.user_role.user_role == 'employee'){
+        window.location = "http://localhost:8080/ERS/html/employee.html";
+        console.log(currentUser);
+    }else{
+        window.location = "http://localhost:8080/ERS/html/manager.html";
+        console.log(currentUser);
+    }
+}

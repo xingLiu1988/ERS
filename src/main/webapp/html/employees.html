@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager View</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/manager.css">
-    <link rel="stylesheet" href="../css/nav.css">
 </head>
+
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,9 +25,6 @@
                     <a class="nav-link" href="http://localhost:8080/ERS/html/manager.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/ERS/html/employees.html">Employees</a>
-                </li>
-                <li class="nav-item">
                     <a href="http://localhost:8080/ERS/html/about.html" class="nav-link">Setting</a>
                 </li>
                 <li class="nav-item">
@@ -35,30 +34,21 @@
         </div>
     </nav>
 
-    <!-- welcome section-->
+    <!-- welcome info -->
     <div class="jumbotron">
-        <h3>Welcome Back Manager: <span id="user-name"></span></h3>
-    </div>
-
-    <!-- filter area -->
-    <div class="bg-light pl-4" id="btns">
-        <span class="font-weight-bold">View By:</span> 
-        <button class="border-0 font-italic" onclick="findAll()">All</button> <span style="color: rgb(231, 203, 166);"> / </span>
-        <button class="border-0 font-italic" onclick='findPending(reimbData)'>Pending</button> <span style="color: rgb(231, 203, 166);"> / </span>
-        <button class="border-0 font-italic" onclick='findResolved(reimbData)'>Resolved</button>
+        <h4>Hello Manager</h4>
+        <p>You can view all employees here. Have a nice day Revature Team!</p>
     </div>
 
     <!-- table list -->
-    <div class="reim-title">
+    <div class="reim-title pt-4">
         <table class="table table-bordered table-hover" id="reimbList">
             <tr>
-                <th>REIMB_ID</th>
-                <th>TYPE</th>
-                <th>STATUS</th>
-                <th>AMOUNT</th>
-                <th>CREATED_DATE</th>
-                <th>RESOLVED</th>
-                <th>DECISION</th>
+                <th>User_ID</th>
+                <th>Username</th>
+                <th>First_name</th>
+                <th>Last_name</th>
+                <th>Email</th>
             </tr>
         </table>
 
@@ -68,8 +58,8 @@
         </div>
     </div>
 
-
-    <script src="../js/manager.js"></script>
     <script src="../js/index.js"></script>
+    <script src="../js/employees.js"></script>
 </body>
+
 </html>

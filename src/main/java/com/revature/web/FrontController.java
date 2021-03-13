@@ -37,6 +37,15 @@ public class FrontController extends HttpServlet {
 		case "updateInfo":
 			RequestHelper.processUpdateInfo(request, response);
 			break;
+		case "allReimburses":
+			RequestHelper.processAllReimburseso(request, response);
+			break;
+		case "decision":
+			RequestHelper.processDecision(request, response);
+			break;
+		case "employees":
+			RequestHelper.processEmployees(request, response);
+			break;
 		}
 	}
 

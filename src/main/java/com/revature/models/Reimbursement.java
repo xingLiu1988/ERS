@@ -9,13 +9,16 @@ public class Reimbursement {
 	private String type;
 	private String status;
 	private int user_id;
+	private String author;
 
 	public Reimbursement() {
 		super();
 	}
 
+	
+
 	public Reimbursement(int reimb_id, double amount, String submitted, String resolved, String description,
-			String type, String status, int user_id) {
+			String type, String status, int user_id, String author) {
 		super();
 		this.reimb_id = reimb_id;
 		this.amount = amount;
@@ -25,7 +28,22 @@ public class Reimbursement {
 		this.type = type;
 		this.status = status;
 		this.user_id = user_id;
+		this.author = author;
 	}
+
+
+
+	public String getAuthor() {
+		return author;
+	}
+
+
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+
 
 	public int getReimb_id() {
 		return reimb_id;
@@ -91,12 +109,16 @@ public class Reimbursement {
 		this.user_id = user_id;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Reimbursement [reimb_id=" + reimb_id + ", amount=" + amount + ", submitted=" + submitted + ", resolved="
 				+ resolved + ", description=" + description + ", type=" + type + ", status=" + status + ", user_id="
-				+ user_id + "]";
+				+ user_id + ", author=" + author + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -105,6 +127,7 @@ public class Reimbursement {
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + reimb_id;
 		result = prime * result + ((resolved == null) ? 0 : resolved.hashCode());
@@ -114,6 +137,8 @@ public class Reimbursement {
 		result = prime * result + user_id;
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -125,6 +150,11 @@ public class Reimbursement {
 			return false;
 		Reimbursement other = (Reimbursement) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+			return false;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -157,5 +187,7 @@ public class Reimbursement {
 			return false;
 		return true;
 	}
+
+	
 
 }

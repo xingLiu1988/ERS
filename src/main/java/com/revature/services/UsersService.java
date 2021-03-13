@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 import com.revature.dao.UsersDao;
 import com.revature.dao.UsersDaoImpl;
+import com.revature.models.Decision;
 import com.revature.models.ReimburseTemplate;
 import com.revature.models.Reimbursement;
 import com.revature.models.UpdateInfoTemplate;
@@ -45,7 +46,7 @@ public class UsersService {
 		return null;
 	}
 
-	// this method will find all the account inside the database
+	// this method will find all the users account inside the database
 	public static List<Users> findAllAccounts() {
 		List<Users> allUsers = uDao.findAllAccounts();
 		return allUsers;
@@ -83,5 +84,13 @@ public class UsersService {
 			}
 		}
 		return null;
+	}
+
+	public static List<Reimbursement> getAllReimburses() {
+		return uDao.getAllReimbuses();
+	}
+
+	public static boolean makeDecision(Decision decision) {
+		return uDao.makeDecision(decision);
 	}
 }
