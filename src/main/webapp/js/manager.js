@@ -45,6 +45,7 @@ function appendListOfImbursements(data) {
         let tr = document.createElement("tr");
 
         let td1 = document.createElement("td");
+        td1.classList.add("first-data");
         let td2 = document.createElement("td");
         let td3 = document.createElement("td");
         let td4 = document.createElement("td");
@@ -70,6 +71,10 @@ function appendListOfImbursements(data) {
 
         // 添加数据到td
         td1.appendChild(reimb_id);
+        td1.addEventListener('click', function(){
+            sessionStorage.setItem('currentReimbursement', JSON.stringify(data[i]));
+            window.location = "http://localhost:8080/ERS/html/details.html";
+        });
         td2.appendChild(type);
         td3.appendChild(status);
         td4.appendChild(amountValue);
@@ -132,6 +137,9 @@ function appendListOfImbursements(data) {
 
         // click to deny
         btn2.addEventListener('click', function () {
+            let userString = sessionStorage.getItem('currentUser');
+            let currentUser = JSON.parse(userString);
+
             // obj
             let obj = {
                 reimb_id: data[i].reimb_id,

@@ -20,3 +20,13 @@
 #reimbList tr:hover {
     background-color: rgb(233, 245, 226);
 }
+.first-data {
+    
+}
+.first-data:hover {
+    cursor: pointer;
+}
+
+td:hover {
+    color: rgb(228, 15, 15);
+}

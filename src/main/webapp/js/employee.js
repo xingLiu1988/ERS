@@ -1,7 +1,6 @@
 // 当用户进入此页面的时候，判断时候已经登录
 window.onload = function () {
     let userString = sessionStorage.getItem('currentUser');
-    console.log(userString);
 
     if (userString === null) {
         window.location = 'http://localhost:8080/ERS/';
@@ -32,7 +31,6 @@ xhr.onreadystatechange = function () {
 }
 
 xhr.open("POST", "http://localhost:8080/ERS/reimbOfCurrent");
-// xhr.open("POST", "http://localhost:8080/ERS/login");
 
 xhr.send(currentUser);
 
@@ -40,6 +38,11 @@ function appendListOfImbursement(data) {
     for (let i = 0; i < data.length; i++) {
         let tr = document.createElement("tr");
         let td1 = document.createElement("td");
+        td1.classList.add('first-data');
+        td1.addEventListener('click', function(){
+            sessionStorage.setItem('currentReimbursement', JSON.stringify(data[i]));
+            window.location = "http://localhost:8080/ERS/html/details.html";
+        });
         let td2 = document.createElement("td");
         let td3 = document.createElement("td");
         let td4 = document.createElement("td");
@@ -122,6 +125,7 @@ function findPending(data) {
 
 //查找Resolved事件
 function findResolved(data) {
+    console.log(data);
     //添加头部
     document.getElementById("reimbList").innerHTML = '';
     let tr = document.createElement('tr');
@@ -161,18 +165,23 @@ function findResolved(data) {
     document.getElementById("reimbList").appendChild(tr);
 
     //过滤
-    let arr = [];
+    let arr2 = [];
     for (let i = 0; i < data.length; i++) {
-        if (data[i].resolved != "") {
-            arr.push(data[i]);
+        if (data[i].resolved.length > 1) {
+            arr2.push(data[i]);
         }
     }
+    console.log(arr2);
 
     //添加资料
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < arr2.length; i++) {
         let tr = document.createElement("tr");
 
         let td1 = document.createElement("td");
+        td1.addEventListener('click', function(){
+            sessionStorage.setItem('currentReimbursement', JSON.stringify(arr2[i]));
+            window.location = "http://localhost:8080/ERS/html/details.html";
+        });
         let td2 = document.createElement("td");
         let td3 = document.createElement("td");
         let td4 = document.createElement("td");
@@ -181,21 +190,21 @@ function findResolved(data) {
         let td7 = document.createElement("td");
 
         // 获取每个数据
-        let reimb_id = document.createTextNode(data[i].reimb_id);
-        let amount = Number(data[i].amount).toFixed(2);
+        let reimb_id = document.createTextNode(arr2[i].reimb_id);
+        let amount = Number(arr2[i].amount).toFixed(2);
         let amountValue = document.createTextNode('$' + amount);
-        let submitted = document.createTextNode(data[i].submitted);
-        let type = document.createTextNode(data[i].type);
-        let status = document.createTextNode(data[i].status);
-        if (data[i].resolved === null) {
-            data[i].resolved = '';
+        let submitted = document.createTextNode(arr2[i].submitted);
+        let type = document.createTextNode(arr2[i].type);
+        let status = document.createTextNode(arr2[i].status);
+        if (arr2[i].resolved === null) {
+            arr2[i].resolved = '';
         }
-        let resolved = document.createTextNode(data[i].resolved);
+        let resolved = document.createTextNode(arr2[i].resolved);
         let author = '';
-        if (data[i].author == null) {
+        if (arr2[i].author == null) {
             author = document.createTextNode('');
         } else {
-            author = document.createTextNode(data[i].author);
+            author = document.createTextNode(arr2[i].author);
         }
 
         // 添加数据到td
@@ -232,7 +241,7 @@ function findResolved(data) {
     //     }
     // }
     // appendListOfImbursement(arr);
-    if (arr.length == 0) {
+    if (arr2.length == 0) {
         document.getElementById("noDataShow").style.display = 'block';
     } else {
         document.getElementById("noDataShow").style.display = 'none';

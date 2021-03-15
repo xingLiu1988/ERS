@@ -46,7 +46,7 @@ function appendEmployeesToTable(data){
         let data1 = document.createTextNode(data[i].user_id);
         let data2 = document.createTextNode(data[i].username);
         let data3 = document.createTextNode(data[i].first_name);
-        let data4 = document.createTextNode(data[i].last_nam);
+        let data4 = document.createTextNode(data[i].last_name);
         let data5 = document.createTextNode(data[i].email);
 
         td1.appendChild(data1);

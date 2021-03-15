@@ -32,6 +32,7 @@ function toggleInfo() {
 }
 
 function backToHome() {
+    
     window.location = 'http://localhost:8080/ERS/html/employee.html';
 }
 

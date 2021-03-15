@@ -1,0 +1,37 @@
+body {
+    background: url("../images/bg.jpg") no-repeat center fixed;
+    background-size: cover;
+}
+
+
+#content {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 100px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+table,
+th,
+td {
+  padding: 20px;
+  border-collapse: collapse;
+  text-align: right;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.right-text {
+    text-align: left;
+    color: rgb(156, 154, 151);
+    font-weight: normal;
+}
+
+.first-data {
+    cursor: pointer;
+}
+td:hover {
+    color: red;
+}

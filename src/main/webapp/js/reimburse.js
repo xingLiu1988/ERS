@@ -2,11 +2,14 @@ function sendImbursement() {
     // get all input from user
     let type = document.getElementById("type").value;
     let amount = document.getElementById("amount").value;
+    if(amount < 1){
+        alert('invalid amount');
+        return false;
+    }
     let description = document.getElementById("description").value;
     let userString = sessionStorage.getItem('currentUser');
     let currentUser = JSON.parse(userString);
     let id = currentUser.user_id;
-    console.log(type, amount, description, id);
 
     //convert input as obj
     let obj = {
@@ -22,7 +25,7 @@ function sendImbursement() {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            alert('成功发送reimburse到后台');
+            alert('Your request has been sent successfully');
             window.location = 'http://localhost:8080/ERS/html/employee.html';
         }
     }
